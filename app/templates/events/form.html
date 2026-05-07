@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="h3 mb-4">
+    {% if mode == 'edit' %}Edit event{% else %}New event{% endif %}
+</h1>
+
+<form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.title.label(class="form-label") }}
+        {{ form.title(class="form-control") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control", rows=4) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.location.label(class="form-label") }}
+        {{ form.location(class="form-control") }}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.starts_at.label(class="form-label") }}
+            {{ form.starts_at(class="form-control") }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.ends_at.label(class="form-label") }}
+            {{ form.ends_at(class="form-control") }}
+        </div>
+    </div>
+
+    {# TODO (HW9): render the multi-select for categories.
+       The form must POST a list of integers under the name "category_ids"
+       so that request.form.getlist('category_ids') returns the selection. #}
+    <div class="mb-3">
+        <label class="form-label">Categories</label>
+        <div>
+            {% for c in categories %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox"
+                           name="category_ids" value="{{ c.id }}"
+                           id="cat-{{ c.id }}"
+                           {% if event and c in event.categories %}checked{% endif %}>
+                    <label class="form-check-label" for="cat-{{ c.id }}">{{ c.name }}</label>
+                </div>
+            {% else %}
+                <p class="text-secondary">No categories yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+    <a href="{{ url_for('events.index') }}" class="btn btn-link">Cancel</a>
+</form>
+{% endblock %}

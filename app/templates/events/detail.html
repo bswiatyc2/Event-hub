@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+{# TODO (HW9): replace this stub with a real event detail page.
+   Show title, description, starts_at, location, creator name, and the
+   list of categories as Bootstrap badges. If the current user is the
+   creator, also show Edit and Delete buttons. #}
+
+<h1>{{ event.title }}</h1>
+
+{% if event.categories %}
+    <p>
+        {% for c in event.categories %}
+            <span class="badge bg-secondary">{{ c.name }}</span>
+        {% endfor %}
+    </p>
+{% endif %}
+
+<dl class="row">
+    <dt class="col-sm-2">When</dt>
+    <dd class="col-sm-10">{{ event.starts_at.strftime('%b %d, %Y at %I:%M %p') }}</dd>
+
+    {% if event.location %}
+    <dt class="col-sm-2">Where</dt>
+    <dd class="col-sm-10">{{ event.location }}</dd>
+    {% endif %}
+
+    <dt class="col-sm-2">Hosted by</dt>
+    <dd class="col-sm-10">{{ event.creator.username }}</dd>
+</dl>
+
+{% if event.description %}
+    <p>{{ event.description }}</p>
+{% endif %}
+
+{% if current_user.is_authenticated and current_user.id == event.creator_id %}
+<div class="mt-4">
+    <a class="btn btn-sm btn-outline-primary"
+       href="{{ url_for('events.edit', event_id=event.id) }}">Edit</a>
+    <form method="POST" action="{{ url_for('events.delete', event_id=event.id) }}"
+          class="d-inline" onsubmit="return confirm('Delete this event?');">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+    </form>
+</div>
+{% endif %}
+{% endblock %}

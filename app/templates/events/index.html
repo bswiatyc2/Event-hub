@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="h3 mb-4">Upcoming events</h1>
+
+{# TODO (HW9): when you implement events.index, replace this stub with a
+   real listing. Iterate over `events`, show title, starts_at, location,
+   and a link to /events/<id>. Show a friendly message when empty. #}
+
+{% if events %}
+    <div class="list-group">
+        {% for event in events %}
+            <a class="list-group-item list-group-item-action"
+               href="{{ url_for('events.detail', event_id=event.id) }}">
+                <div class="d-flex justify-content-between">
+                    <strong>{{ event.title }}</strong>
+                    <small class="text-secondary">
+                        {{ event.starts_at.strftime('%b %d, %Y at %I:%M %p') }}
+                    </small>
+                </div>
+                {% if event.location %}<small class="text-secondary">{{ event.location }}</small>{% endif %}
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-secondary">No upcoming events. Be the first to create one!</p>
+{% endif %}
+{% endblock %}
