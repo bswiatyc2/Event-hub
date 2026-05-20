@@ -100,8 +100,8 @@ with app.app_context():
     events[0].categories = [categories[3]]
     events[1].categories = [categories[0]]
     events[2].categories = [categories[1]]
-    events[2].categories = [categories[1]]
-    events[2].categories = [categories[1]]
+    events[3].categories = [categories[1]]
+    events[4].categories = [categories[1]]
 
     db.session.flush()
     print(f'Seeded {len(events)} events')
