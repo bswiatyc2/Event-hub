@@ -1,0 +1,21 @@
+*The unique constraint.** What attack or bug does `uq_rsvp_event_user` defend against that a `if RSVP.query.filter_by(...).first()`
+Python check does not?
+
+it checks that no event can be chosen by one person twice
+
+**`flush()` vs `commit()`.** What does `db.session.flush()` do in your `seed.py` that `db.session.add()` alone does not?
+What would happen if you removed every `flush()` call?
+
+i think flush adds some sort of pause that alose somthingg to build... honistly
+it was vary cinfusing
+
+i swa it in the note then the hw the claude but wasnt sure
+
+**Creator-only check.** Describe one specific concrete attack
+(URL, browser action, or curl command) that the `if event.creator_id != current_user.id:
+abort(403)` line in `edit()` and `delete()` blocks.
+ Be precise about who the attacker is and what they would do.
+
+ if somone does that route thing were they just type in a code to the route still wont be able to reach
+
+
