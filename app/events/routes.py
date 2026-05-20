@@ -11,7 +11,7 @@ from flask_login import login_required, current_user
 from app import db
 from app.events import bp
 from app.events.forms import EventForm
-# from app.models import Event, Category   # uncomment after you build the models
+from app.models import Event, Category
 
 
 @bp.route('/')
@@ -49,6 +49,29 @@ def create():
         the selected categories via event.categories = [...], commit, and
         redirect to the detail page.
     """
+    categories = Category.query.order_by(Category.name).all()
+    form = EventForm()
+    if form.validate_on_submit():
+        event = Event(
+            title=form.title.data,
+            location=form.location.data,
+            description=form.description.data,
+            starts_at=form.starts_at.data,
+            ends_at=form.ends_at.data,
+            creator=current_user,
+            categories=categories,
+        )
+
+        selected_ids = request.form.getlist('categories_ids')
+        event.categories = Category.query.filter(
+            Category.id.in_(selected_ids)
+        ).all()
+
+        db.session.add(event)
+        db.session.commit()
+        flash(f'Event {event.title} created!', 'success')
+        return redirect(url_for('events.detail', event_id=event.id))
+    return render_template('events/form.html', form=form, categories=categories, mode='create')
     # TODO (HW9)
     # categories = Category.query.order_by(Category.name).all()
     form = EventForm()
@@ -70,7 +93,11 @@ def edit(event_id):
       - On POST, update the columns, replace event.categories with the new
         selection, commit, and redirect to the detail page.
     """
+
     # TODO (HW9)
+
+    if event.creator_id != current_user.id:
+        abort(403)
     abort(404)
 
 
