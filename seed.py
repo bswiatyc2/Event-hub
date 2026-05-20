@@ -11,7 +11,7 @@ are already provided as a working reference.
 from datetime import datetime, timedelta
 
 from app import create_app, db
-from app.models import User  # Category, Event, RSVP -- uncomment after building
+from app.models import User, Category, Event, RSVP
 
 
 app = create_app()
@@ -21,16 +21,16 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-    # ---- Categories  -- TODO (HW9, uncomment after building Category) ----
-    # categories = [
-    #     Category(name='Tech',    slug='tech'),
-    #     Category(name='Art',     slug='art'),
-    #     Category(name='Music',   slug='music'),
-    #     Category(name='Fitness', slug='fitness'),
-    # ]
-    # db.session.add_all(categories)
-    # db.session.flush()  # assign IDs without committing
-    # print(f'Seeded {len(categories)} categories')
+    #---- Categories  -- TODO (HW9, uncomment after building Category) ----
+    categories = [
+        Category(name='Tech',    slug='tech'),
+        Category(name='Art',     slug='art'),
+        Category(name='Music',   slug='music'),
+        Category(name='Fitness', slug='fitness'),
+    ]
+    db.session.add_all(categories)
+    db.session.flush()  # assign IDs without committing
+    print(f'Seeded {len(categories)} categories')
 
     # ---- Users (provided) ------------------------------------------------
     admin = User(username='admin', email='admin@example.com')
@@ -48,22 +48,78 @@ with app.app_context():
 
     # ---- Events  -- TODO (HW9) -------------------------------------------
     # Create three Event rows. Use:
-    #   now = datetime.utcnow()
-    #   starts_at = now + timedelta(days=N)
+    now = datetime.utcnow()
+    #starts_at = now + timedelta(days=N)
     # Attach 1-2 categories to each via the .categories list assignment.
     #
-    # events = [...]
-    # db.session.add_all(events)
-    # db.session.flush()
-    # print(f'Seeded {len(events)} events')
+    events = [
+        Event(
+            title='SUMMER FUN',
+       description='pool party',
+            loacation='pool',
+            starts_at=now + timedelta(days=1),
+            ends_at=now + timedelta(days=1),
+            creator=admin
+        ),
+        Event(
+            title='TOP SECRET',
+            description='secret party',
+            loacation='top',
+            starts_at=now + timedelta(days=1),
+            ends_at=now + timedelta(days=1),
+            creator=alice
+        ),
+        Event(
+            title='Birthday',
+            description='celibrate birthday',
+            loacation='park',
+            starts_at=now + timedelta(days=1),
+            ends_at=now + timedelta(days=1),
+            creator=bob
+        ),
+        Event(
+            title='Birthday 2',
+            description='celibrate birthday',
+            loacation='park',
+            starts_at=now + timedelta(days=1),
+            ends_at=now + timedelta(days=1),
+            creator=bob
+        ),
+        Event(
+            title='Birthday 3',
+            description='celibrate birthday',
+            loacation='park',
+            starts_at=now + timedelta(days=1),
+            ends_at=now + timedelta(days=1),
+            creator=bob
+        )
+
+    ]
+    db.session.add_all(events)
+
+    events[0].categories = [categories[3]]
+    events[1].categories = [categories[0]]
+    events[2].categories = [categories[1]]
+    events[2].categories = [categories[1]]
+    events[2].categories = [categories[1]]
+
+    db.session.flush()
+    print(f'Seeded {len(events)} events')
+
 
     # ---- RSVPs  -- TODO (HW9) --------------------------------------------
     # Create three RSVP rows tying alice and bob to the events above.
     # Remember: one user can RSVP to a given event only once.
     #
-    # rsvps = [...]
-    # db.session.add_all(rsvps)
-    # print(f'Seeded {len(rsvps)} RSVPs')
+    rsvps = [
+        RSVP(user=alice, event=events[0], status='attending'),
+        RSVP(user=alice, event=events[1],status='attending'),
+        RSVP(user=bob, event=events[2], status='attending'),
+        RSVP(user=bob, event=events[3], status='attending'),
+    ]
+    db.session.add_all(rsvps)
+    db.session.flush()
+    print(f'Seeded {len(rsvps)} RSVPs')
 
     db.session.commit()
     print('\nTest login: admin@example.com / password')
