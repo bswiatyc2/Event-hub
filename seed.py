@@ -56,7 +56,7 @@ with app.app_context():
         Event(
             title='SUMMER FUN',
        description='pool party',
-            loacation='pool',
+            location='pool',
             starts_at=now + timedelta(days=1),
             ends_at=now + timedelta(days=1),
             creator=admin
@@ -64,7 +64,7 @@ with app.app_context():
         Event(
             title='TOP SECRET',
             description='secret party',
-            loacation='top',
+            location='top',
             starts_at=now + timedelta(days=1),
             ends_at=now + timedelta(days=1),
             creator=alice
@@ -72,7 +72,7 @@ with app.app_context():
         Event(
             title='Birthday',
             description='celibrate birthday',
-            loacation='park',
+            location='park',
             starts_at=now + timedelta(days=1),
             ends_at=now + timedelta(days=1),
             creator=bob
@@ -80,7 +80,7 @@ with app.app_context():
         Event(
             title='Birthday 2',
             description='celibrate birthday',
-            loacation='park',
+            location='park',
             starts_at=now + timedelta(days=1),
             ends_at=now + timedelta(days=1),
             creator=bob
@@ -88,7 +88,7 @@ with app.app_context():
         Event(
             title='Birthday 3',
             description='celibrate birthday',
-            loacation='park',
+            location='park',
             starts_at=now + timedelta(days=1),
             ends_at=now + timedelta(days=1),
             creator=bob
@@ -112,10 +112,10 @@ with app.app_context():
     # Remember: one user can RSVP to a given event only once.
     #
     rsvps = [
-        RSVP(user=alice, event=events[0], status='attending'),
-        RSVP(user=alice, event=events[1],status='attending'),
-        RSVP(user=bob, event=events[2], status='attending'),
-        RSVP(user=bob, event=events[3], status='attending'),
+        RSVP(user=alice, event_id=events[0].id, status='attending'),
+        RSVP(user=alice, event_id=events[1].id,status='attending'),
+        RSVP(user=bob, event_id=events[2].id, status='attending'),
+        RSVP(user=bob, event_id=events[3].id, status='attending'),
     ]
     db.session.add_all(rsvps)
     db.session.flush()

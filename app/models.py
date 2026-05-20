@@ -87,6 +87,7 @@ class Event(db.Model):
     location = db.Column(db.String(200), nullable=False)
     starts_at = db.Column(db.DateTime, nullable=False, index=False)
     ends_at = db.Column(db.DateTime, nullable=False, index=False)
+    creator = db.relationship('User', backref='events_created')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'),nullable=False)
@@ -128,4 +129,4 @@ class RSVP(db.Model):
     __table_args__ = (
         db.UniqueConstraint('event_id', 'user_id', name='uq_rsvp_event_user'),)
     def __repr__(self):
-        return f'<RSVP events={self.status_id} user={self.user_id} status={self.status}>'
+        return f'<RSVP events={self.event_id} user={self.user_id} status={self.status}>'
