@@ -55,7 +55,7 @@ def upgrade():
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['category.id'], ),
     sa.ForeignKeyConstraint(['event_id'], ['event.id'], ),
-    sa.PrimaryKeyConstraint('event_id')
+    sa.PrimaryKeyConstraint('event_id', 'category_id')
     )
     op.create_table('rsvp',
     sa.Column('id', sa.Integer(), nullable=False),
