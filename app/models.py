@@ -86,7 +86,7 @@ class Event(db.Model):
     description = db.Column(db.String(200), nullable=False)
     location = db.Column(db.String(200), nullable=False)
     starts_at = db.Column(db.DateTime, nullable=False, index=False)
-    ends_at = db.Column(db.DateTime, nullable=False, index=False)
+    ends_at = db.Column(db.DateTime, nullable=True, index=False)
     creator = db.relationship('User', backref='events_created')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 

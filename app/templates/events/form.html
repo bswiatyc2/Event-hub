@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% from "_macros.html" import render_field %}
+
 {% block content %}
 <h1 class="h3 mb-4">
     {% if mode == 'edit' %}Edit event{% else %}New event{% endif %}
@@ -9,34 +11,27 @@
     {{ form.hidden_tag() }}
 
     <div class="mb-3">
-        {{ form.title.label(class="form-label") }}
-        {{ form.title(class="form-control") }}
+        {{ render_field(form.title) }}
     </div>
 
     <div class="mb-3">
-        {{ form.description.label(class="form-label") }}
-        {{ form.description(class="form-control", rows=4) }}
+        {{ render_field(form.description) }}
     </div>
 
     <div class="mb-3">
-        {{ form.location.label(class="form-label") }}
-        {{ form.location(class="form-control") }}
+        {{ render_field(form.location) }}
     </div>
 
     <div class="row">
         <div class="col-md-6 mb-3">
-            {{ form.starts_at.label(class="form-label") }}
-            {{ form.starts_at(class="form-control") }}
+            {{ render_field(form.starts_at) }}
         </div>
         <div class="col-md-6 mb-3">
-            {{ form.ends_at.label(class="form-label") }}
-            {{ form.ends_at(class="form-control") }}
+            {{ render_field(form.ends_at) }}
         </div>
     </div>
 
-    {# TODO (HW9): render the multi-select for categories.
-       The form must POST a list of integers under the name "category_ids"
-       so that request.form.getlist('category_ids') returns the selection. #}
+
     <div class="mb-3">
         <label class="form-label">Categories</label>
         <div>

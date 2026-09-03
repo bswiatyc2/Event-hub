@@ -3,10 +3,6 @@
 {% block content %}
 <h1 class="h3 mb-4">Upcoming events</h1>
 
-{# TODO (HW9): when you implement events.index, replace this stub with a
-   real listing. Iterate over `events`, show title, starts_at, location,
-   and a link to /events/<id>. Show a friendly message when empty. #}
-
 {% if events %}
     <div class="list-group">
         {% for event in events %}
