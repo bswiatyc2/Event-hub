@@ -4,9 +4,6 @@ Run with:    python seed.py
 
 WARNING: This script calls db.drop_all(). It will delete every row in every
 table. Never run in production.
-
-You finish the events + RSVPs sections in HW9 -- the user and category sections
-are already provided as a working reference.
 """
 from datetime import datetime, timedelta
 
@@ -21,7 +18,7 @@ with app.app_context():
     db.drop_all()
     db.create_all()
 
-    #---- Categories  -- TODO (HW9, uncomment after building Category) ----
+    #---- Categories
     categories = [
         Category(name='Tech',    slug='tech'),
         Category(name='Art',     slug='art'),
@@ -46,7 +43,7 @@ with app.app_context():
     db.session.flush()
     print('Seeded 3 users (admin, alice, bob)')
 
-    # ---- Events  -- TODO (HW9) -------------------------------------------
+    # ---- Events  --------------------
     # Create three Event rows. Use:
     now = datetime.utcnow()
     #starts_at = now + timedelta(days=N)
@@ -107,10 +104,8 @@ with app.app_context():
     print(f'Seeded {len(events)} events')
 
 
-    # ---- RSVPs  -- TODO (HW9) --------------------------------------------
-    # Create three RSVP rows tying alice and bob to the events above.
-    # Remember: one user can RSVP to a given event only once.
-    #
+    # ---- RSVPs  -- ---------------------------------
+    # Create three RSVP rows
     rsvps = [
         RSVP(user=alice, event_id=events[0].id, status='attending'),
         RSVP(user=alice, event_id=events[1].id,status='attending'),
