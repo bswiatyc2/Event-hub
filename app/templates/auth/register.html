@@ -17,6 +17,9 @@
             <div class="mb-3">
                 {{ form.password.label(class="form-label") }}
                 {{ form.password(class="form-control") }}
+                {%  for error in form.password.errors %}
+                    <div class="invalid-feedback">{{ error}}</div>
+                {% endfor %}
             </div>
             <div class="mb-3">
                 {{ form.password2.label(class="form-label") }}

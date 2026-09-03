@@ -1,7 +1,6 @@
-"""Auth routes lifted from StudyStack.
-
-Includes the open-redirect defense from Week 8 on /login.
-"""
+'''
+all auth routes listed
+'''
 from urllib.parse import urlsplit
 
 from flask import render_template, redirect, url_for, flash, request
