@@ -68,6 +68,12 @@ requirements.txt
    python app.py
    ```
    Visit `http://127.0.0.1:5000` in your browser.
+## 🔧 My Extensions & Refactoring
+I branched this project to independenty enhance its maintainability, frontend scalability, and data layer structure:
+* **Reusable UI Macro Architecture:** Created the custom Jinja `render_field` macro to eliminate repetitive form markup. It dynamically applies Bootstrap's `is-invalid` classes and injects field-specific error feedback across all forms.
+* **Database Model Optimization:** Refactored the core SQLAlchemy models to optimize structural relationships, improving how data interacts between Users, Events, and Categories.
+* **Codebase Cleanup:** Streamlined project files and code structure to align with cleaner, more maintainable development practices.
+
 
 ## Design Notes
 
